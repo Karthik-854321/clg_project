@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>LMS Gateway</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+:root{--bg:#fff;--fg:#15171b;--muted:#71757d;--line:#e7e7e9;--card:#fff;--primary:#111827;--accent:#1f5eff;--soft:#eef3ff;--danger:#b42318;--ok:#18794e;--radius:14px}
+*{box-sizing:border-box}html,body,#app{min-height:100%;margin:0}body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--fg)}
+button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{min-height:100vh;display:flex;flex-direction:column}.header{height:64px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.88);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
+.header-inner{height:100%;max-width:1180px;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{border:0;background:none;display:flex;align-items:center;gap:10px;color:var(--fg);font-weight:500}
+.mark{width:32px;height:32px;border-radius:7px;background:#111;color:#fff;display:grid;place-items:center}
+.brand-name{font:500 21px "Instrument Serif",serif}.nav{display:flex;gap:25px;font-size:12px;font-weight:500}.nav button{border:0;background:none;color:var(--muted)}.nav button:hover{color:var(--fg)}
+.main{flex:1}.container{max-width:900px;margin:auto;padding:0 24px}
+.home{padding:72px 0 84px}.hero{text-align:center;max-width:720px;margin:auto}.hero-icon{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--soft);color:var(--accent);margin-bottom:18px}
+h1,h2,h3{margin:0}.hero h1,.page-title{font:500 clamp(42px,6vw,60px)/1.05 "Instrument Serif",serif;letter-spacing:-.025em}
+.hero h1 em,.page-title em{color:var(--accent);font-style:normal}.hero p,.page-subtitle{font-size:15px;line-height:1.7;color:var(--muted);max-width:610px;margin:16px auto 0}
+.search{max-width:680px;margin:38px auto 18px;position:relative}.search input{width:100%;height:56px;border:1px solid var(--line);border-radius:12px;padding:0 90px 0 44px;color:var(--fg);background:#fff;box-shadow:0 5px 18px rgba(17,24,39,.05)}
+.search svg{position:absolute;left:15px;top:17px;color:#90959e}.clear{position:absolute;right:11px;top:10px;height:36px;border:0;background:#f3f4f6;border-radius:8px;padding:0 12px;font-size:11px;color:#525866}
+.count{text-align:left;max-width:680px;margin:0 auto 12px;color:var(--muted);font-size:11px}.count strong{color:var(--fg)}
+.list{max-width:680px;margin:auto;display:grid;gap:10px}.college{width:100%;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px;display:flex;align-items:center;text-align:left;transition:.2s;animation:rise .35s both;animation-delay:var(--d)}.college:hover{border-color:#c7cbd2;box-shadow:0 10px 25px rgba(17,24,39,.08);transform:translateY(-1px)}.college-logo{width:44px;height:44px;border-radius:9px;background:#f0f1f3;display:grid;place-items:center;font-size:10px;font-weight:700;color:#27303d;flex:none}.college-info{min-width:0;flex:1;margin-left:14px}.college-info strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.college-info small{display:block;color:var(--muted);font-size:10px;margin-top:4px}.arrow{color:#9da2aa;transition:.2s}.college:hover .arrow{transform:translateX(3px);color:var(--accent)}
+.empty{max-width:680px;margin:auto;border:1px dashed #d6d9de;border-radius:12px;padding:45px 20px;text-align:center;color:var(--muted);font-size:12px}.empty strong{display:block;color:var(--fg);margin:10px 0 5px}
+.page{padding:40px 0 80px}.back{border:0;background:none;color:var(--muted);font-size:11px;padding:7px 0;display:flex;align-items:center;gap:6px}.back:hover{color:var(--fg)}
+.context{display:flex;align-items:center;gap:10px;margin:45px 0 34px}.context .college-logo{width:40px;height:40px}.context small{display:block;color:#9a9da3;font-size:9px}.context strong{display:block;font-size:12px;margin-top:3px}
+.kicker{font-size:10px;letter-spacing:.12em;font-weight:700;color:var(--accent);margin-bottom:12px}.page-title{font-size:48px}.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:32px}.role{position:relative;min-height:205px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;padding:20px;display:flex;flex-direction:column;transition:.2s}.role:hover{border-color:#c7cbd2;box-shadow:0 12px 28px rgba(17,24,39,.08);transform:translateY(-2px)}.role-icon{width:42px;height:42px;border-radius:10px;background:var(--soft);color:var(--accent);display:grid;place-items:center;margin-bottom:18px}.role strong{font:500 21px "Instrument Serif",serif}.role span{display:block;color:var(--muted);font-size:10px;line-height:1.6;margin-top:7px;padding-right:8px}.role .arrow{position:absolute;right:18px;bottom:18px}.privacy{margin-top:18px;font-size:9px;color:#92969e;display:flex;align-items:center;gap:6px}
+.login-page{min-height:calc(100vh - 64px);display:grid;grid-template-columns:42% 58%}.login-left{background:#111827;color:#fff;padding:34px clamp(24px,6vw,75px);display:flex;flex-direction:column}.login-brand{display:flex;align-items:center;gap:9px;font:500 22px "Instrument Serif",serif;margin-top:52px}.login-brand .mark{background:#fff;color:#111}.login-copy{margin:auto 0}.login-copy .kicker{color:#9eb8ff}.login-copy h1{font:500 clamp(42px,5vw,58px)/1.04 "Instrument Serif",serif;letter-spacing:-.02em}.login-copy h1 em{font-style:normal;color:#9eb8ff}.login-copy p{color:#b9c0ca;font-size:12px;line-height:1.75;max-width:470px;margin-top:15px}.feature{font-size:10px;color:#c8ced8;margin-top:11px}.login-right{display:grid;place-items:center;padding:32px}.login-card{width:min(420px,100%)}.login-head{margin-bottom:25px}.login-head .college-logo{margin-bottom:10px}.login-head small{font-size:9px;color:#9297a0}.login-head h2{font:500 34px "Instrument Serif",serif;margin:8px 0 3px}.login-head p{margin:0;color:var(--muted);font-size:11px}.field{display:block;margin-top:16px;font-size:10px;font-weight:700;color:#3e444d}.input{height:48px;border:1px solid #dcdfe4;border-radius:9px;display:flex;align-items:center;gap:8px;padding:0 12px;margin-top:6px}.input svg{color:#9298a1}.input input{border:0;outline:0;width:100%;font-size:11px}.options{display:flex;justify-content:space-between;align-items:center;margin:12px 0 16px;font-size:9px;color:var(--muted)}.options label{display:flex;align-items:center;gap:5px}.options button{border:0;background:none;color:var(--accent);font-size:9px}.msg{border-radius:8px;padding:9px 11px;font-size:9px;line-height:1.5;margin-bottom:10px}.msg.error{background:#fff1f0;color:var(--danger)}.msg.ok{background:#edf9f2;color:var(--ok)}.primary,.google{height:48px;width:100%;border-radius:9px;font-size:11px;font-weight:700}.primary{border:0;background:#1f5eff;color:#fff;display:flex;justify-content:center;align-items:center;gap:7px}.google{border:1px solid #dcdfe4;background:#fff;color:#333;margin-top:12px}.divider{display:flex;align-items:center;gap:9px;color:#a1a5ad;font-size:9px;margin:17px 0}.divider:before,.divider:after{content:"";height:1px;background:#eceef1;flex:1}
+.coming{min-height:550px;text-align:center;display:flex;align-items:center;flex-direction:column}.coming-icon{width:64px;height:64px;border-radius:17px;background:var(--soft);color:var(--accent);display:grid;place-items:center;margin-top:80px}.coming .page-title{margin-top:16px}.coming p{max-width:480px;color:var(--muted);font-size:12px;line-height:1.7}.secondary{height:42px;padding:0 18px;border:1px solid #dcdfe4;background:#fff;border-radius:9px;font-size:10px;font-weight:700}
+.footer{border-top:1px solid var(--line);padding:24px;display:flex;justify-content:space-between;max-width:1180px;width:100%;margin:auto;color:#92969e;font-size:9px}.footer-wrap{border-top:1px solid var(--line)}
+.hidden{display:none}@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.nav{display:none}.home{padding-top:52px}.roles{grid-template-columns:1fr}.role{min-height:145px}.login-page{grid-template-columns:1fr}.login-left{min-height:390px}.login-copy{margin:55px 0 30px}.login-right{padding:25px}.page-title{font-size:42px}.footer{flex-direction:column;gap:8px}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const colleges=[
+ {id:1,name:"Mohan Babu University",location:"Tirupati, Andhra Pradesh",type:"University",abbr:"MBU"},
+ {id:2,name:"VIT-AP University",location:"Amaravati, Andhra Pradesh",type:"University",abbr:"VIT"},
+ {id:3,name:"SRM University-AP",location:"Amaravati, Andhra Pradesh",type:"University",abbr:"SRM"},
+ {id:4,name:"IIT Madras",location:"Chennai, Tamil Nadu",type:"Institute",abbr:"IIT"},
+ {id:5,name:"JNTU Kakinada",location:"Kakinada, Andhra Pradesh",type:"University",abbr:"JNTU"},
+ {id:6,name:"Andhra University",location:"Visakhapatnam, Andhra Pradesh",type:"University",abbr:"AU"}
+];
+let state={page:"home",college:null,query:"",submitted:false,email:"",password:""};
+
+const icons={
+ book:`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v16a3 3 0 0 0-3-3H5a2 2 0 0 1-2-2z"/><path d="M21 5a2 2 0 0 0-2-2h-5a2 2 0 0 0-2 2v16a3 3 0 0 1 3-3h4a2 2 0 0 0 2-2z"/></svg>`,
+ grad:`<svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 9 9-4 9 4-9 4-9-4Z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/><path d="M21 9v6"/></svg>`,
+ user:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 3.4-6 8-6s7.2 2 8 6"/></svg>`,
+ users:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c.5-4 2.5-6 6-6s5.5 2 6 6"/><path d="M14 14c3.4-.2 5.4 1.5 6 5"/></svg>`,
+ eye:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>`,
+ search:`<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>`,
+ arrow:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>`,
+ back:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m15 18-6-6 6-6"/><path d="M9 12h10"/></svg>`,
+ shield:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 20 6v5c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg>`,
+ mail:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>`,
+ lock:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>`,
+ check:`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>`
+};
+
+function shell(content){
+ return `<div class="app">
+  <header class="header"><div class="header-inner">
+   <button class="brand" data-action="home"><span class="mark">${icons.book}</span><span class="brand-name">LMS Gateway</span></button>
+   <nav class="nav"><button data-action="help">Help</button><button data-action="accessibility">Accessibility</button></nav>
+  </div></header>
+  <main class="main">${content}</main>
+  ${state.page==="login"?"":`<div class="footer-wrap"><footer class="footer"><span>© 2026 University Systems. All rights reserved.</span><span>Terms&nbsp;&nbsp;&nbsp;&nbsp;Privacy</span></footer></div>`}
+ </div>`;
+}
+function home(){
+ const q=state.query.trim().toLowerCase();
+ const list=colleges.filter(c=>!q||`${c.name} ${c.location}`.toLowerCase().includes(q));
+ return shell(`<div class="container home"><div class="hero">
+  <div class="hero-icon">${icons.grad}</div>
+  <h1>Select your institution</h1>
+  <p>Access your digital learning environment, administrative tools, and campus resources.</p>
+ </div>
+ <div class="search">${icons.search}<input aria-label="Search for your university or college" value="${esc(state.query)}" placeholder="Search for your university or college..." data-input="search">${state.query?'<button class="clear" data-action="clear">Clear</button>':''}</div>
+ <div class="count"><strong>${list.length}</strong> ${list.length===1?"institution":"institutions"} available</div>
+ ${list.length?`<div class="list">${list.map((c,i)=>`<button class="college" style="--d:${i*45}ms" data-college="${c.id}">
+   <span class="college-logo">${c.abbr}</span><span class="college-info"><strong>${esc(c.name)}</strong><small>${esc(c.location)}</small></span><span class="arrow">${icons.arrow}</span>
+ </button>`).join("")}</div>`:`<div class="empty">${icons.search}<strong>No institutions found</strong>Try another university or city.`}
+ </div></div>`);
+}
+function identify(){
+ const c=state.college;
+ const roles=[
+  ["student","Student","Access courses, notes, exams, placements and your academic dashboard.",icons.grad],
+  ["parent","Parent","Monitor academic progress, attendance and important updates.",icons.users],
+  ["visitor","Visitor","Explore public university information and available resources.",icons.eye]
+ ];
+ return shell(`<div class="container page">
+  <button class="back" data-action="back-home">${icons.back} Back to institution selection</button>
+  <div class="context"><span class="college-logo">${c.abbr}</span><div><small>Selected institution</small><strong>${esc(c.name)}</strong></div></div>
+  <div class="kicker">IDENTIFICATION</div><h1 class="page-title">How will you use <em>LMS Gateway?</em></h1>
+  <p class="page-subtitle" style="margin-left:0">Choose your role to continue to the appropriate portal.</p>
+  <div class="roles">${roles.map(r=>`<button class="role" data-role="${r[0]}"><span class="role-icon">${r[3]}</span><strong>${r[1]}</strong><span>${r[2]}</span><span class="arrow">${icons.arrow}</span></button>`).join("")}</div>
+  <div class="privacy">${icons.shield} Your role only determines which portal you enter.</div>
+ </div>`);
+}
+function login(){
+ const c=state.college, valid=state.email.trim()&&state.password.length>=6;
+ return `<div class="login-page">
+  <aside class="login-left">
+   <button class="back" style="color:#b9c0ca" data-action="back-ident">${icons.back} Back to identification</button>
+   <div class="login-brand"><span class="mark">${icons.book}</span>LMS Gateway</div>
+   <div class="login-copy"><div class="kicker">STUDENT PORTAL</div><h1>Everything you need to <em>learn.</em></h1><p>Access courses, academic resources, assessments, placement preparation and university services from one place.</p>
+   <div class="feature">${icons.check} Personalized student dashboard</div><div class="feature">${icons.check} Academic resources & previous papers</div><div class="feature">${icons.check} Secure university access</div></div>
+  </aside>
+  <section class="login-right"><form class="login-card" data-form="login">
+   <div class="login-head"><span class="college-logo">${c.abbr}</span><small>${esc(c.name)}</small><h2>Welcome back</h2><p>Sign in to your student account.</p></div>
+   <label class="field">University email or student ID<div class="input">${icons.mail}<input value="${esc(state.email)}" placeholder="student@university.edu" data-input="email" autocomplete="username"></div></label>
+   <label class="field">Password<div class="input">${icons.lock}<input type="password" value="${esc(state.password)}" placeholder="Enter your password" data-input="password" autocomplete="current-password"></div></label>
+   <div class="options"><label><input type="checkbox" data-input="remember"> Remember me</label><button type="button" data-action="forgot">Forgot password?</button></div>
+   ${state.submitted?(valid?'<div class="msg ok">Demo validation passed. Connect your real authentication provider to complete sign-in.</div>':'<div class="msg error">Enter a valid email or student ID and a password of at least 6 characters.</div>'):''}
+   <button class="primary" type="submit">Sign in ${icons.arrow}</button><div class="divider">or</div>
+   <button class="google" type="button" data-action="google">Continue with Google</button>
+  </form></section>
+ </div>`;
+}
+function coming(role){
+ const title=role==="parent"?"Parent Portal":"Visitor Access";
+ const desc=role==="parent"?"Monitor academic progress, attendance and important updates.":"Explore public university information and available resources.";
+ return shell(`<div class="container page coming">
+  <button class="back" data-action="back-ident">${icons.back} Back to identification</button>
+  <div class="coming-icon">${role==="parent"?icons.users:icons.eye}</div><div class="kicker">${role.toUpperCase()} PORTAL</div>
+  <h1 class="page-title">${title}</h1><p>${desc} Your selected institution is <strong>${esc(state.college.name)}</strong>.</p>
+  <button class="secondary" data-action="back-ident">Choose another role</button>
+ </div>`);
+}
+function render(){
+ let content=state.page==="home"?home():state.page==="identify"?identify():state.page==="login"?login():coming(state.page);
+ document.getElementById("app").innerHTML=content;
+ window.scrollTo(0,0);
+}
+function esc(v){return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function go(page){state.page=page;state.submitted=false;render()}
+document.addEventListener("click",e=>{
+ const college=e.target.closest("[data-college]");
+ if(college){state.college=colleges.find(c=>c.id===Number(college.dataset.college));go("identify");return}
+ const role=e.target.closest("[data-role]");
+ if(role){go(role.dataset.role==="student"?"login":role.dataset.role);return}
+ const a=e.target.closest("[data-action]");
+ if(!a)return;
+ const action=a.dataset.action;
+ if(action==="home"){state.college=null;state.query="";go("home")}
+ else if(action==="clear"){state.query="";render()}
+ else if(action==="back-home"){go("home")}
+ else if(action==="back-ident"){go("identify")}
+ else if(action==="forgot"){alert("Password reset is a backend feature and is not connected in this frontend prototype.")}
+ else if(action==="google"){alert("Google sign-in requires an authentication provider connection.")}
+ else if(action==="help"){alert("Help: choose your institution, select your role, then continue to the relevant portal.")}
+ else if(action==="accessibility"){alert("Accessibility: keyboard focus, labels, responsive layout and visible focus states are enabled.")}
+});
+document.addEventListener("input",e=>{
+ if(e.target.dataset.input==="search"){state.query=e.target.value;render();const el=document.querySelector('[data-input="search"]');el.focus();el.setSelectionRange(state.query.length,state.query.length)}
+ if(e.target.dataset.input==="email"){state.email=e.target.value}
+ if(e.target.dataset.input==="password"){state.password=e.target.value}
+});
+document.addEventListener("submit",e=>{if(e.target.dataset.form==="login"){e.preventDefault();state.submitted=true;render()}});
+render();
+</script>
+</body>
+</html>
